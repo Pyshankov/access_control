@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.pyshankov.lab1" />
+
+    <bean id="scanner" class="java.util.Scanner">
+        <constructor-arg value="#{T(System).in}" />
+    </bean>
+
+    <bean id="file" class="java.io.File">
+        <constructor-arg value="users.csv"/>
+    </bean>
+
+    <bean id="cache" class="java.io.File">
+        <constructor-arg value="cache.csv"/>
+    </bean>
+
+    <bean id="securityAspect" class="com.pyshankov.lab1.aspect.SecurityAspectImpl" />
+
+    <bean id="securityDecorator" class="com.pyshankov.lab1.service.SecurityDecorator">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="securityAspect"/>
+        <constructor-arg ref="userDaoRepository"/>
+    </bean>
+
+
+    <!--<bean id="securityAspect" class="com.pyshankov.lab1.aspect.SecurityAspectImpl" >-->
+        <!--<constructor-arg value="#{T(System).out}" />-->
+    <!--</bean>-->
+
+
+
+    <!--<aop:config>-->
+        <!--<aop:aspect ref="userDaoRepository">-->
+
+            <!--<aop:pointcut id="theExecutionOfPerformVerification"-->
+                          <!--expression="execution(* com.pyshankov.lab1.aspect.SecurityAspectImpl.performVerification(..))"/>-->
+
+            <!--<aop:before pointcut-ref="theExecutionOfPerformVerification"-->
+                        <!--method="getAll"/>-->
+
+            <!--<aop:after pointcut-ref="theExecutionOfPerformVerification"-->
+                        <!--method="getAll"/>-->
+
+
+        <!--</aop:aspect>-->
+
+    <!--</aop:config>-->
+
+
+</beans>

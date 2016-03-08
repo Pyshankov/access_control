@@ -11,6 +11,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -112,7 +113,7 @@ public class EntranceDesktop {
 
         switch (chose){
             case 1:{
-                System.out.println(userServiceSecure.getAllUsers());
+                ( userServiceSecure.getAllUsers()).values().stream().forEach(System.out::println);
                 showForAdmin();
             }
 
